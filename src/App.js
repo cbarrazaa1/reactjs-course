@@ -4,85 +4,20 @@ import Person from './Person/Person.js';
 
 class App extends Component {
   state = {
-    persons: [
-      { id: 'asdf1', name: 'Max', age: 28 },
-      { id: 'qwer1', name: 'Manu', age: 29 },
-      { id: 'dfgh1', name: 'Stephanie', age: 26 }
-    ],
-    username: 'Cesar',
-    showPersons: false
+    text: ''
   };
 
-  nameChangedHandler = (event, id) => {
-    const personIndex = this.state.persons.findIndex(p => id === p.id);
-    const person = {...this.state.persons[personIndex]};
-    person.name = event.target.value;
-
-    const persons = [...this.state.persons];
-    persons[personIndex] = person;
-
+  textChangedHandler = (e) => {
     this.setState({
-      persons: persons
-    });
-  }
-
-  usernameChangedHandler = (e) => {
-    this.setState({
-      username: e.target.value
-    });
-  }
-
-  deletePersonHandler = (index) => {
-    const persons = [...this.state.persons];
-    persons.splice(index, 1);
-    this.setState({
-      persons: persons
-    });
-  }
-
-  togglePersonsHandler = () => {
-    const doesShow = this.state.showPersons;
-    this.setState({
-      showPersons: !doesShow
+      text: e.target.value
     });
   }
 
   render() {
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    };
-
-    let persons = null;
-    if (this.state.showPersons) {
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                key={person.id}
-                name={person.name}
-                age={person.age}
-                click={() => this.deletePersonHandler(index)}
-                changed={(event) => this.nameChangedHandler(event, person.id)} />
-            );
-          })}
-        </div>);
-    }
-
     return (
       <div className="App">
-        <h1>Hi, I'm a React app!!!</h1>
-        <p>This is really working!</p>
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>
-          Toggle Persons
-        </button>
-        {persons}
+        <input onChange={(e) => this.textChangedHandler(e)} value={this.state.text}/>
+        <p>{this.state.text.length}</p>
       </div>
     );
   }
