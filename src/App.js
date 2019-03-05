@@ -15,9 +15,10 @@ class App extends Component {
   }
 
   charDeletedHandler = (index) => {
-    const text = this.state.text.split('').splice(index, 1).join('');
+    const text = this.state.text.split('');
+    text.splice(index, 1);
     this.setState({
-      text: text
+      text: text.join('')
     });
   }
 
@@ -29,7 +30,7 @@ class App extends Component {
         <ValidationComponent text={this.state.text}/>
         {this.state.text.split('').map((c, index) => {
           return (
-            <CharComponent letter={c} deleted={index => this.charDeletedHandler(index)}/>
+            <CharComponent letter={c} deleted={() => this.charDeletedHandler(index)}/>
           );
         })}
       </div>
